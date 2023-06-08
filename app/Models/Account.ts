@@ -1,21 +1,19 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, column, HasOne, hasOne, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import { randomUUID } from 'crypto'
+import Role from './Role'
 import Permission from './Permission'
-import Account from './Account'
+import User from './User'
 
-export default class Role extends BaseModel {
+export default class Account extends BaseModel {
   @column({ isPrimary: true })
   public id: string
 
-  @column()
-  public slug: string
+  @hasOne(() => User)
+  public user: HasOne<typeof User>
 
-  @column()
-  public power: number
-
-  @manyToMany(() => Account)
-  public acounts: ManyToMany<typeof Account>
+  @manyToMany(() => Role)
+  public roles: ManyToMany<typeof Role>
 
   @manyToMany(() => Permission)
   public permissions: ManyToMany<typeof Permission>
@@ -27,7 +25,7 @@ export default class Role extends BaseModel {
   public updatedAt: DateTime
 
   @beforeCreate()
-  public static async generateUuid (model: Role) {
+  public static async generateUuid (model: Account) {
     model.id = randomUUID()
   }
 }

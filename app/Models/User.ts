@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, beforeSave, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { randomUUID } from 'crypto'
-import Role from './Role'
+import Account from './Account'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -14,8 +14,11 @@ export default class User extends BaseModel {
   @column()
   public password: string
 
-  @manyToMany(() => Role)
-  public roles: ManyToMany<typeof Role>
+  @column()
+  public accountId: string
+  
+  @belongsTo(() => Account)
+  public account: BelongsTo<typeof Account>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
