@@ -9,6 +9,9 @@ export default class Account extends BaseModel {
   @column({ isPrimary: true })
   public id: string
 
+  @column()
+  public rememberMeToken: string | null
+
   @hasOne(() => User)
   public user: HasOne<typeof User>
 

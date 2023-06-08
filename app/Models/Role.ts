@@ -15,7 +15,7 @@ export default class Role extends BaseModel {
   public power: number
 
   @manyToMany(() => Account)
-  public acounts: ManyToMany<typeof Account>
+  public accounts: ManyToMany<typeof Account>
 
   @manyToMany(() => Permission)
   public permissions: ManyToMany<typeof Permission>
