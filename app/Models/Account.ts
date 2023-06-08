@@ -10,6 +10,9 @@ export default class Account extends BaseModel {
   public id: string
 
   @column()
+  public uuid: string
+
+  @column()
   public rememberMeToken: string | null
 
   @hasOne(() => User)
