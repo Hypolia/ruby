@@ -20,13 +20,16 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-
 Route.group(() => {
   Route.group(() => {
+    Route.group(() => {
+      Route.get('/me', 'AuthenticationController.me')
+      Route.delete('/logout', 'AuthenticationController.logout')
+    }).middleware('auth')
 
+    Route.group(() => {
+      Route.post('/login', 'AuthenticationController.login')
+    }).middleware('guest')
   }).prefix('/authentication')
 
   Route.group(() => {
@@ -37,7 +40,14 @@ Route.group(() => {
       Route.put('/:id', 'AccountsController.update')
       Route.delete('/:id', 'AccountsController.destroy')
     }).prefix('/accounts')
+
+    Route.group(() => {
+      Route.get('/', 'RolesController.index')
+      Route.get('/:id', 'RolesController.show')
+      Route.post('/', 'RolesController.store')
+      Route.put('/:id', 'RolesController.update')
+      Route.delete('/:id', 'RolesController.destroy')
+    }).prefix('/roles')
   }).middleware(['auth'])
 }).prefix('/v1')
 
-Route.get('/users', 'UsersControler.index')
