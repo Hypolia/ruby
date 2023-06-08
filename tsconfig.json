@@ -30,7 +30,9 @@
       "@adonisjs/repl",
       "@japa/preset-adonis/build/adonis-typings",
       "adonis5-prometheus",
-      "@adonisjs/lucid"
+      "@adonisjs/lucid",
+      "@adonisjs/bouncer",
+      "@adonisjs/auth"
     ]
   }
 }
